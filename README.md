@@ -12,14 +12,20 @@ https://drive.google.com/open?id=1JLYVBfm1kkxVDSdl7tGf_gxSGBsJmgO1
 ## 1. CPU Burn
 When CPUs are fully utilized by other processes on the host, latency of processes generally increases.
 
+#### CPU Burn - CPU
 ![CPU Burn - CPU](/images/cpu_burn_01.png)
+
+#### CPU Burn - Latency
 ![CPU Burn - Latency](/images/cpu_burn_02.png)
 
 ## 2. Network traffic corruption
 Latency was not necessarily high when network traffic corruption occurred potentially because the
 transactions (e.g. HTTP requests fail when the network traffic). This resulted in spikey CPU and latency.
 
+#### Spikey CPU
 ![Network traffic corruption - Spikey CPU](/images/network_corruption_01.png)
+
+#### Comparison of corrupted network traffic vs uncorrupted traffic
 ![Network traffic corruptions - Comparison of corrupted network traffic vs uncorrupted](/images/network_corruption_02.png)
 
 ## 3. Killing/Starting containers
@@ -27,7 +33,10 @@ transactions (e.g. HTTP requests fail when the network traffic). This resulted i
 When two of the three container are stopped, the only running container on the green canary VM is overwhelmed and
 its health turns red. There are significantly more failed transactions.
 
+#### The only running green container is unhealthy as it processes more requests than it can handle.
 ![Killing containers - The only running green container is unhealthy as it processes more requests than it can handle.](/images/kill_01.png)
+
+#### app1 and app2 are stopped. Availability is much lower, and the number of failed transactions is much higher.
 ![Killing containers - app1 and app2 are stopped. Availability is much lower, and number of failed transactions is much higher.](/images/kill_02.png)
 
 ## 4. Restricting CPU and Memory
@@ -35,6 +44,7 @@ I encountered a problem running the `app1` and `app2` containers with less than 
 reduce the CPUs to 0.25 which demonstrated significant latency and poor health of the containers as they failed
 to process all requests.
 
+#### Latency is higher, health is red.
 ![Restricting CPU and Memory - Latency is higher, health is red](/images/restrict_01.png)
 
 ## 5. Fill Disk 
@@ -50,8 +60,13 @@ disk space.
 canary containers, the overlay file system filled up the underlying host file sysystem. This prevented operations such as `docker exec` operations on running
 containers.
 
+#### All file system is used but able to run app3 container
 ![Fill Disk - All file system is used but able to run app3 container](/images/disk_01.png)
+
+#### Unable to exec a command in a container because no disk space available
 ![Fill Disk - Unable to exec a command in a container because no disk space available](/images/disk_03.png)
+
+#### All host file system is used
 ![Fill Disk - All host file system is used](/images/disk_04.png)
 
 
