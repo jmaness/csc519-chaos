@@ -63,11 +63,11 @@ A.
 
 1. Define the list of measures (latency, CPU, transaction rate, number of successful transactions) and 
 how to collect each. For example, the metrics can be stored in a database associating the metric, the VM, container, etc., scenario.
-2. Define the list of scenarios, and how to execute the steps for each scenario to configure the systems under test. 
-3. Execute each scenario: 
-    a. Run an Ansible playbook to configure each system for the initial state of the scenario.
-    b. Run the scenario
-    c. Collect the metrics, and store them in the database.
-4. Analyze the results, and select the event/failure that maximizes (or minimize where appropriate) the metrics.
+1. Define the list of scenarios, and how to execute the steps for each scenario to configure the systems under test. 
+1. Execute each scenario: 
+    1. Run an Ansible playbook to configure each system for the initial state of the scenario.
+    1. Run the scenario
+    1. Collect the metrics, and store them in the database.
+1. Analyze the results, and select the event/failure that maximizes (or minimize where appropriate) the metrics.
 
 
